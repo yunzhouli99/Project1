@@ -25,6 +25,8 @@ public class DataBus : MonoBehaviour
 
     // Íø¸ñÊı×é
     public int[,] gridArray;
+    public int[] steps = new int[3];
+
 
     private void Awake()
     {

@@ -13,6 +13,7 @@ public class MapGenerator : MonoBehaviour
     public int iteration = 3;
     public int bSpike = 6;
     public int sSpike = 3;
+    public GameObject goal;
 
     void Start()
     {
@@ -21,11 +22,17 @@ public class MapGenerator : MonoBehaviour
 
     public int[,] GenerateGrid()
     {
+        foreach (Transform child in transform)
+        {
+            // 销毁子对象
+            Destroy(child.gameObject);
+        }
         gridSize = DataBus.Instance.gridSize;
         gridArray = DataBus.Instance.gridArray;
         // 初始化二维数组
         gridArray = new int[gridSize, gridSize];
 
+        goal.transform.position = new Vector3(1, gridSize - 2, 0);
         // 设置边缘为1
         GenerateSpike();
 
@@ -48,6 +55,7 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+        gridArray[1, gridSize - 2] = 2;
         return gridArray;
     }
 
@@ -70,7 +78,7 @@ public class MapGenerator : MonoBehaviour
         do
         {
             CellularAutomata();
-            for (int y = 1; y < 5; y++)
+            for (int y = 1; y < 6; y++)
             {
                 gridArray[gridSize - 2, y] = 0;
             }
